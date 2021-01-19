@@ -174,9 +174,9 @@ def return_figures():
             y = df['gdp_per_capita_usd'].tolist(),
             marker = dict(color = [
                 '#7F7F7F',
+                '#17BECF', # france
                 '#7F7F7F',
-                '#7F7F7F',
-                '#1F77B4',
+                '#1F77B4', # romania
                 '#7F7F7F'
             ])
         )
@@ -360,17 +360,24 @@ def return_figures():
     df = df[df['year'] == 2018]
     df = df[df['country'] == 'Romania']
     df.columns = ['country','year','urban_population_prc']
+    df['urban_population_prc'] = pd.to_numeric(df['urban_population_prc'])
     
     graph_seven.append(
         go.Bar(
             x = df['country'].tolist(),
-            y = df['urban_population_prc'].tolist()
+            y = df['urban_population_prc'].tolist(),
+            width = 0.4
         )
     )
 
     layout_seven = dict(title = 'Urban Population (%) in 2018',
-                        xaxis = dict(title = 'year',),
-                        yaxis = dict(title = 'urban population percentage')
+                        xaxis = dict(title = 'country'),
+                        yaxis = dict(
+                            title = 'urban population percentage',
+                            tickmode = 'linear',
+                            tick0 = 0,
+                            dtick = 50,
+                            range=[0, 100])
                        )
     
     
